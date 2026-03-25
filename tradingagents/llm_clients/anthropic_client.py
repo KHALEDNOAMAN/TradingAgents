@@ -37,6 +37,13 @@ class AnthropicClient(BaseLLMClient):
             if key in self.kwargs:
                 llm_kwargs[key] = self.kwargs[key]
 
+        if self.base_url:
+            llm_kwargs["base_url"] = self.base_url
+            # Local/proxy endpoints don't require a real API key;
+            # provide a placeholder so the SDK doesn't raise.
+            if "api_key" not in llm_kwargs:
+                llm_kwargs["api_key"] = "sk-no-key-required"
+
         return NormalizedChatAnthropic(**llm_kwargs)
 
     def validate_model(self) -> bool:

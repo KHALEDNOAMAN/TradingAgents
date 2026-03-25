@@ -67,6 +67,9 @@ class OpenAIClient(BaseLLMClient):
                 llm_kwargs["api_key"] = "ollama"
         elif self.base_url:
             llm_kwargs["base_url"] = self.base_url
+            # Custom endpoint (e.g. local gateway) may not need a real key
+            if "api_key" not in llm_kwargs:
+                llm_kwargs["api_key"] = "sk-no-key-required"
 
         # Forward user-provided kwargs
         for key in _PASSTHROUGH_KWARGS:
@@ -74,12 +77,15 @@ class OpenAIClient(BaseLLMClient):
                 llm_kwargs[key] = self.kwargs[key]
 
         # Native OpenAI: use Responses API for consistent behavior across
-        # all model families. Third-party providers use Chat Completions.
-        if self.provider == "openai":
+        # all model families. Third-party providers and custom endpoints
+        # use standard Chat Completions.
+        if self.provider == "openai" and not self.base_url:
             llm_kwargs["use_responses_api"] = True
 
         return NormalizedChatOpenAI(**llm_kwargs)
 
     def validate_model(self) -> bool:
-        """Validate model for the provider."""
+        """Validate model for the provider. Skip for custom endpoints."""
+        if self.base_url:
+            return True
         return validate_model(self.provider, self.model)

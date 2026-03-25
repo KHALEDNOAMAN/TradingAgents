@@ -141,6 +141,9 @@ def select_shallow_thinking_agent(provider) -> str:
     # Within same tier, newer models first
     SHALLOW_AGENT_OPTIONS = {
         "openai": [
+            ("Claude Sonnet 4 - Best speed and intelligence balance", "claude-sonnet-4-20250514"),
+            ("Claude Haiku 4.5 - Fast, near-instant responses", "claude-haiku-4-5-20251001"),
+            ("Claude Opus 4 - Most intelligent", "claude-opus-4-20250514"),
             ("GPT-5 Mini - Balanced speed, cost, and capability", "gpt-5-mini"),
             ("GPT-5 Nano - High-throughput, simple tasks", "gpt-5-nano"),
             ("GPT-5.4 - Latest frontier, 1M context", "gpt-5.4"),
@@ -206,6 +209,9 @@ def select_deep_thinking_agent(provider) -> str:
     # Within same tier, newer models first
     DEEP_AGENT_OPTIONS = {
         "openai": [
+            ("Claude Sonnet 4 - Best speed and intelligence balance", "claude-sonnet-4-20250514"),
+            ("Claude Opus 4 - Most intelligent", "claude-opus-4-20250514"),
+            ("Claude Haiku 4.5 - Fast, near-instant responses", "claude-haiku-4-5-20251001"),
             ("GPT-5.4 - Latest frontier, 1M context", "gpt-5.4"),
             ("GPT-5.2 - Strong reasoning, cost-effective", "gpt-5.2"),
             ("GPT-5 Mini - Balanced speed, cost, and capability", "gpt-5-mini"),
@@ -266,12 +272,12 @@ def select_llm_provider() -> tuple[str, str]:
     """Select the OpenAI api url using interactive selection."""
     # Define OpenAI api options with their corresponding endpoints
     BASE_URLS = [
-        ("OpenAI", "https://api.openai.com/v1"),
+        ("OpenAI", "http://localhost:8080/v1"),
         ("Google", "https://generativelanguage.googleapis.com/v1"),
         ("Anthropic", "https://api.anthropic.com/"),
         ("xAI", "https://api.x.ai/v1"),
         ("Openrouter", "https://openrouter.ai/api/v1"),
-        ("Ollama", "http://localhost:11434/v1"),
+        ("Ollama", "http://localhost:8080/"),
     ]
     
     choice = questionary.select(
