@@ -100,11 +100,6 @@ Our framework decomposes complex trading tasks into specialized roles. This ensu
 
 ### Installation
 
-Clone TradingAgents:
-```bash
-git clone https://github.com/TauricResearch/TradingAgents.git
-cd TradingAgents
-```
 
 Create a virtual environment in any of your favorite environment managers:
 ```bash
@@ -200,9 +195,6 @@ print(decision)
 
 See `tradingagents/default_config.py` for all configuration options.
 
-## Contributing
-
-We welcome contributions from the community! Whether it's fixing a bug, improving documentation, or suggesting a new feature, your input helps make this project better. If you are interested in this line of research, please consider joining our open-source financial AI research community [Tauric Research](https://tauric.ai/).
 
 ## Citation
 
